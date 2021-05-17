@@ -1,8 +1,12 @@
 package com.txservices.interview.models;
 
+import org.springframework.data.mongodb.core.index.Indexed;
+
 public class Initiator {
 
     private String name;
+
+    @Indexed
     private String email;
     private boolean notify;
 

@@ -1,8 +1,8 @@
 package com.txservices.interview.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.txservices.interview.services.DoodleServiceImpl;
-import com.txservices.interview.models.DoodleCollection;
+import com.txservices.interview.services.PollsServiceImpl;
+import com.txservices.interview.models.PollCollection;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,34 +27,37 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Unit tests.
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest(DoodleController.class)
-public class DoodleControllerTest {
+@WebMvcTest(PollsController.class)
+public class PollsControllerTest {
 
     private static final String POLL_ID = "1";
     private static final String POLL_TITLE = "poll_title";
-    private static final String ENDPOINT_DOODLES_GET_BY_TITLE = "/doodles/title/customTitleText";
-    private static List<DoodleCollection> DOODLE_LIST;
+    private static final String ENDPOINT_POLLS_GET_BY_TITLE = "/doodle-polls/title/customTitleText";
+    private static List<PollCollection> DOODLE_LIST;
+
     @Autowired
     private MockMvc mockMvc;
+
     @Autowired
     private ObjectMapper objectMapper;
+
     @MockBean
-    private DoodleServiceImpl doodlesService;
+    private PollsServiceImpl pollsService;
 
     @Before
     public void setupBeforeEachTest() {
         DOODLE_LIST = new ArrayList<>();
-        DoodleCollection doodleCollection = new DoodleCollection();
-        doodleCollection.setId(POLL_ID);
-        doodleCollection.setTitle(POLL_TITLE);
-        DOODLE_LIST.add(doodleCollection);
+        PollCollection pollCollection = new PollCollection();
+        pollCollection.setId(POLL_ID);
+        pollCollection.setTitle(POLL_TITLE);
+        DOODLE_LIST.add(pollCollection);
     }
 
     @Test
     public void findByTitleShouldReturnStatusOk() throws Exception {
-        when(doodlesService.findByTitle(any())).thenReturn(DOODLE_LIST);
+        when(pollsService.findByTitle(any())).thenReturn(DOODLE_LIST);
 
-        MvcResult mvcResult = mockMvc.perform(get(ENDPOINT_DOODLES_GET_BY_TITLE))
+        MvcResult mvcResult = mockMvc.perform(get(ENDPOINT_POLLS_GET_BY_TITLE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*].id").value(POLL_ID))
                 .andReturn();
@@ -65,9 +68,9 @@ public class DoodleControllerTest {
 
     @Test
     public void findByTitleShouldReturnCorrectIdAndTitle() throws Exception {
-        when(doodlesService.findByTitle(any())).thenReturn(DOODLE_LIST);
+        when(pollsService.findByTitle(any())).thenReturn(DOODLE_LIST);
 
-        MvcResult mvcResult = mockMvc.perform(get(ENDPOINT_DOODLES_GET_BY_TITLE))
+        MvcResult mvcResult = mockMvc.perform(get(ENDPOINT_POLLS_GET_BY_TITLE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*].id").value(POLL_ID))
                 .andExpect(jsonPath("$[*].title").value(POLL_TITLE))

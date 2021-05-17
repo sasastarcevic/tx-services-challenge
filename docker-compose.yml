@@ -32,7 +32,7 @@ services:
     ports:
       - 27017:27017
 
-  mongo-seed:
+  init-polls:
     build: ./init-polls
     links:
       - mongo-database

@@ -1,15 +1,18 @@
 package com.txservices.interview.models;
 
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document(collection = "DoodleCollection")
-public class DoodleCollection {
+@Document(collection = "PollCollection")
+public class PollCollection {
 
     private String id;
     private String adminKey;
     private long latestChange;
+
+    @Indexed
     private long initiated;
     private int participantsCount;
     private int inviteesCount;
@@ -18,6 +21,8 @@ public class DoodleCollection {
     private String preferencesType;
     private String state;
     private String locale;
+
+    @Indexed
     private String title;
     private Initiator initiator;
     private List<Option> options;
