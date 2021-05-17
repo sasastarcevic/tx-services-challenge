@@ -18,6 +18,6 @@ public interface PollCollectionRepository extends MongoRepository<PollCollection
     Optional<List<PollCollection>> findByTitle(String title);
 
     @Query("{'initiated' : { $gte: ?0 } }")
-    Optional<List<PollCollection>> findGraterByDate(long from);
+    Optional<List<PollCollection>> findByGreaterDate(long from);
 
 }

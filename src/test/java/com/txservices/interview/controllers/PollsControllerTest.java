@@ -55,7 +55,7 @@ public class PollsControllerTest {
 
     @Test
     public void findByTitleShouldReturnStatusOk() throws Exception {
-        when(pollsService.findByTitle(any())).thenReturn(DOODLE_LIST);
+        when(pollsService.searchPollsByTitle(any())).thenReturn(DOODLE_LIST);
 
         MvcResult mvcResult = mockMvc.perform(get(ENDPOINT_POLLS_GET_BY_TITLE))
                 .andExpect(status().isOk())
@@ -68,7 +68,7 @@ public class PollsControllerTest {
 
     @Test
     public void findByTitleShouldReturnCorrectIdAndTitle() throws Exception {
-        when(pollsService.findByTitle(any())).thenReturn(DOODLE_LIST);
+        when(pollsService.searchPollsByTitle(any())).thenReturn(DOODLE_LIST);
 
         MvcResult mvcResult = mockMvc.perform(get(ENDPOINT_POLLS_GET_BY_TITLE))
                 .andExpect(status().isOk())

@@ -20,7 +20,7 @@ public class PollsServiceImpl implements PollsService {
     private PollCollectionRepository pollCollectionRepository;
 
     @Override
-    public List<PollCollection> findByInitiatorEmail(String email) {
+    public List<PollCollection> listAllPollsCreatedByUser(String email) {
         LOGGER.debug("Getting the polls by email: " + email);
         return pollCollectionRepository.findByInitiatorEmail(email).orElseThrow(() -> {
             LOGGER.warn("Initiator email: " + email + " not found!");
@@ -29,7 +29,7 @@ public class PollsServiceImpl implements PollsService {
     }
 
     @Override
-    public List<PollCollection> findByTitle(String title) {
+    public List<PollCollection> searchPollsByTitle(String title) {
         LOGGER.debug("Getting the polls by title: " + title);
         return pollCollectionRepository.findByTitle(title).orElseThrow(() -> {
             LOGGER.warn("Poll title: " + title + " not found!");
@@ -38,11 +38,11 @@ public class PollsServiceImpl implements PollsService {
     }
 
     @Override
-    public List<PollCollection> findGraterByDate(long from) {
-        LOGGER.debug("Getting the polls by email: " + from);
-        return pollCollectionRepository.findGraterByDate(from).orElseThrow(() -> {
-            LOGGER.warn("Date gratter then: " + from + " not found!");
-            return new ApiException(ErrorType.POLL_NOT_FOUND, String.valueOf(from));
+    public List<PollCollection> listAllPollsCreatedAfterDate(long greaterDate) {
+        LOGGER.debug("Getting the polls by greater date: " + greaterDate);
+        return pollCollectionRepository.findByGreaterDate(greaterDate).orElseThrow(() -> {
+            LOGGER.warn("Date gratter then: " + greaterDate + " not found!");
+            return new ApiException(ErrorType.POLL_NOT_FOUND, String.valueOf(greaterDate));
         });
     }
 }

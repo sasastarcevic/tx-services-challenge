@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface PollsService {
 
-    List<PollCollection> findByInitiatorEmail(String email);
+    List<PollCollection> listAllPollsCreatedByUser(String email);
 
-    List<PollCollection> findByTitle(String title);
+    List<PollCollection> searchPollsByTitle(String title);
 
-    List<PollCollection> findGraterByDate(long from);
+    List<PollCollection> listAllPollsCreatedAfterDate(long from);
 
 }
